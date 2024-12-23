@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Do You Love Me</title>
+</head>
+<body>
+<h1>Do you love me?</h1>
+
+<button id="yesButton">YES</button>
+<button id="noButton">NO</button>
+
+<script>
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+
+    yesButton.addEventListener('click', () => {
+        alert("<3");
+    });
+
+    noButton.addEventListener('mouseover', () => {
+        const maxX = window.innerWidth - noButton.offsetWidth;
+        const maxY = window.innerHeight - noButton.offsetHeight;
+        const newX = Math.floor(Math.random() * maxX);
+        const newY = Math.floor(Math.random() * maxY);
+        noButton.style.left = newX + 'px';
+        noButton.style.top = newY + 'px';
+    });
+</script>
+</script>
+</body>
+</html>

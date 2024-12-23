@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Puzzle Game</title>
+  <style>
+    .puzzle-container {
+      display: grid;
+      grid-template-columns: repeat(4, 100px); /* Adjust for number of columns */
+      grid-gap: 5px;
+    }
+
+    .puzzle-piece {
+      width: 100px;
+      height: 100px;
+      border: 1px solid #ccc;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="puzzle-container">
+</div>
+
+<script>
+  const puzzleContainer = document.querySelector('.puzzle-container');
+  const imageSrc = 'path/to/your/image.jpg'; // Replace with your image path
+
+  // Function to shuffle an array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  // Create puzzle pieces
+  const numRows = 4; // Adjust for number of rows
+  const numCols = 4; // Adjust for number of columns
+  const pieces = [];
+
+  for (let row = 0; row < numRows; row++) {
+    for (let col = 0; col < numCols; col++) {
+      const piece = document.createElement('div');
+      piece.classList.add('puzzle-piece');
+      piece.style.backgroundPosition = `-${col * 100}px -${row * 100}px`; // Adjust for piece size
+      pieces.push(piece);
+    }
+  }
+
+  // Shuffle the pieces
+  shuffleArray(pieces);
+
+  // Add pieces to the container
+  pieces.forEach(piece => {
+    puzzleContainer.appendChild(piece);
+  });
+
+  // Handle piece clicks
+  pieces.forEach((piece, index) => {
+    piece.addEventListener('click', () => {
+      // Swap with the next piece
+      const nextIndex = (index + 1) % pieces.length;
+      [pieces[index], pieces[nextIndex]] = [pieces[nextIndex], pieces[index]];
+
+      // Update the puzzle
+      pieces.forEach((piece, index) => {
+        piece.style.backgroundPosition = `-${Math.floor(index % numCols) * 100}px -${Math.floor(index / numCols) * 100}px`;
+      });
+
+      // Check if the puzzle is solved
+      if (isPuzzleSolved()) {
+        alert('Congratulations! You solved the puzzle!');
+      }
+    });
+  });
+
+  // Function to check if the puzzle is solved
+  function isPuzzleSolved() {
+    for (let i = 0; i < pieces.length; i++) {
+      if (pieces[i].style.backgroundPosition !== `-${Math.floor(i % numCols) * 100}px -${Math.floor(i / numCols) * 100}px`) {
+        return false;
+      }
+    }
+    return true;
+  }
+</script>
+
+</body>
+</html>
