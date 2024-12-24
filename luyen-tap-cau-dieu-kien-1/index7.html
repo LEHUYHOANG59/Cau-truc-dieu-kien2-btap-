@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính cước điện thoại</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+<h1>Tính cước điện thoại</h1>
+<form id="phoneForm">
+  <label for="noiHat">Số phút gọi nội hạt:</label>
+  <input type="number" id="noiHat" placeholder="Nhập số phút gọi nội hạt" min="0" required>
+
+  <label for="lienTinh">Số phút gọi liên tỉnh:</label>
+  <input type="number" id="lienTinh" placeholder="Nhập số phút gọi liên tỉnh" min="0" required>
+
+  <button type="button" onclick="tinhCuoc()">Tính cước</button>
+</form>
+
+<div class="result" id="result"></div>
+
+<script>
+  function tinhCuoc() {
+    // Lấy giá trị nhập vào
+    const soPhutNoiHat = parseInt(document.getElementById("noiHat").value) || 0;
+    const soPhutLienTinh = parseInt(document.getElementById("lienTinh").value) || 0;
+
+    // Cước thuê bao cố định
+    const cuocThueBao = 50000;
+
+    // Tính phí cuộc gọi nội hạt
+    let cuocNoiHat;
+    if (soPhutNoiHat <= 200) {
+      cuocNoiHat = soPhutNoiHat * 600;
+    } else {
+      cuocNoiHat = (200 * 600) + ((soPhutNoiHat - 200) * 400);
+    }
+
+    // Tính phí cuộc gọi liên tỉnh
+    const cuocLienTinh = soPhutLienTinh * 1000;
+
+    // Tổng cước
+    const tongCuoc = cuocThueBao + cuocNoiHat + cuocLienTinh;
+
+    // Hiển thị kết quả
+    const resultDiv = document.getElementById("result");
+    resultDiv.innerHTML = `
+                <p><strong>Cước thuê bao:</strong> ${cuocThueBao.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                <p><strong>Cước nội hạt:</strong> ${cuocNoiHat.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                <p><strong>Cước liên tỉnh:</strong> ${cuocLienTinh.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+                <p><strong>Tổng cước:</strong> ${tongCuoc.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
+            `;
+  }
+</script>
+</body>
+</html>
