@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính giá điện</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+    }
+    label, input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Tính giá điện</h1>
+  <label for="kwh">Nhập số điện (kWh):</label>
+  <input type="number" id="kwh" placeholder="Nhập số kWh" required>
+
+  <button onclick="calculateElectricity()">Tính giá điện</button>
+
+  <h3 id="result"></h3>
+</div>
+
+<script>
+  function calculateElectricity() {
+    var kwh = document.getElementById("kwh").value;
+    var result = document.getElementById("result");
+
+    if (kwh === "" || kwh < 0) {
+      result.innerHTML = "Vui lòng nhập số điện hợp lệ!";
+      return;
+    }
+
+    kwh = parseFloat(kwh);
+    var cost = 0;
+
+    if (kwh <= 50) {
+      cost = kwh * 1000;
+    } else if (kwh <= 100) {
+      cost = 50 * 1000 + (kwh - 50) * 1500;
+    } else if (kwh <= 200) {
+      cost = 50 * 1000 + 50 * 1500 + (kwh - 100) * 2000;
+    } else {
+      cost = 50 * 1000 + 50 * 1500 + 100 * 2000 + (kwh - 200) * 2500;
+    }
+
+    result.innerHTML = "Số tiền bạn phải trả là: " + cost + " đồng.";
+  }
+</script>
+</body>
+</html>

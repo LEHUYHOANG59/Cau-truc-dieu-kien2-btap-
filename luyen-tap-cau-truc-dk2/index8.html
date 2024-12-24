@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bai 8</title>
+</head>
+<body>
+<div class="container">
+  <h2>Kiểm Tra Tuổi Hợp Lệ</h2>
+  <form id="ageForm">
+    <div class="form-group">
+      <label for="age">Nhập một số:</label>
+      <input type="number" id="age" required>
+    </div>
+    <button type="button" onclick="checkAge()">Kiểm tra</button>
+  </form>
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+  function checkAge() {
+    const age = parseInt(document.getElementById('age').value);
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(age)) {
+      resultDiv.innerHTML = "Vui lòng nhập một số nguyên!";
+      return;
+    }
+
+    if (age > 0 && age < 120) {
+      resultDiv.innerHTML = `${age} là tuổi hợp lệ.`;
+    } else {
+      resultDiv.innerHTML = `${age} không phải là tuổi hợp lệ (phải lớn hơn 0 và nhỏ hơn 120).`;
+    }
+  }
+</script>
+</body>
+</html>

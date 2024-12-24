@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bai 9</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiểm Tra Tam Giác</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Kiểm Tra Tam Giác</h2>
+  <form id="triangleForm">
+    <div class="form-group">
+      <label for="a">Nhập cạnh a:</label>
+      <input type="number" id="a" step="0.01" required>
+    </div>
+    <div class="form-group">
+      <label for="b">Nhập cạnh b:</label>
+      <input type="number" id="b" step="0.01" required>
+    </div>
+    <div class="form-group">
+      <label for="c">Nhập cạnh c:</label>
+      <input type="number" id="c" step="0.01" required>
+    </div>
+    <button type="button" onclick="checkTriangle()">Kiểm tra</button>
+  </form>
+  <div id="result" class="result"></div>
+</div>
+
+<script>
+  function checkTriangle() {
+    const a = parseFloat(document.getElementById('a').value);
+    const b = parseFloat(document.getElementById('b').value);
+    const c = parseFloat(document.getElementById('c').value);
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+      resultDiv.innerHTML = "Vui lòng nhập đúng giá trị cho cả ba cạnh!";
+      return;
+    }
+
+    if (a > 0 && b > 0 && c > 0 && (a + b > c) && (b + c > a) && (a + c > b)) {
+      resultDiv.innerHTML = `Ba cạnh a = ${a}, b = ${b}, c = ${c} có thể tạo thành một tam giác.`;
+    } else {
+      resultDiv.innerHTML = `Ba cạnh a = ${a}, b = ${b}, c = ${c} không thể tạo thành một tam giác.`;
+    }
+  }
+</script>
+</body>
+</html>
+
+</body>
+</html>

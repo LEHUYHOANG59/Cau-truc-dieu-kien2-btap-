@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính lãi ngân hàng</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+    }
+    label, input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Tính lãi ngân hàng</h1>
+  <label for="principal">Số tiền ban đầu (VND):</label>
+  <input type="number" id="principal" placeholder="Nhập số tiền ban đầu" required>
+
+  <label for="rate">Lãi suất hàng tháng (%):</label>
+  <input type="number" id="rate" placeholder="Nhập lãi suất hàng tháng" step="0.1" required>
+
+  <label for="months">Số tháng cho vay:</label>
+  <input type="number" id="months" placeholder="Nhập số tháng cho vay" required>
+
+  <button onclick="calculateInterest()">Tính lãi</button>
+
+  <h3 id="result"></h3>
+</div>
+
+<script>
+  function calculateInterest() {
+    var principal = parseFloat(document.getElementById("principal").value);
+    var rate = parseFloat(document.getElementById("rate").value) / 100;
+    var months = parseInt(document.getElementById("months").value);
+    var result = document.getElementById("result");
+
+    if (isNaN(principal) || isNaN(rate) || isNaN(months) || principal <= 0 || rate <= 0 || months <= 0) {
+      result.innerHTML = "Vui lòng nhập các giá trị hợp lệ!";
+      return;
+    }
+
+    // Công thức tính lãi kép
+    var amount = principal * Math.pow(1 + rate, months);
+    var interest = amount - principal;
+
+    result.innerHTML = "Số tiền sau " + months + " tháng là: " + amount.toLocaleString() + " VND<br>";
+    result.innerHTML += "Lãi bạn nhận được là: " + interest.toLocaleString() + " VND";
+  }
+</script>
+</body>
+</html>
