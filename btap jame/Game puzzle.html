@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Puzzle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+        }
+        .puzzle-piece {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            cursor: pointer;
+            border: 2px solid #ddd;
+        }
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="puzzle-container" id="puzzle-container">
+        <div class="puzzle-piece" data-index="0" style="background-image: url('image1-1.jpg');"></div>
+        <div class="puzzle-piece" data-index="1" style="background-image: url('image1-2.jpg');"></div>
+        <div class="puzzle-piece" data-index="2" style="background-image: url('image1-3.jpg');"></div>
+        <div class="puzzle-piece" data-index="3" style="background-image: url('image2-1.jpg');"></div>
+        <div class="puzzle-piece" data-index="4" style="background-image: url('image2-2.jpg');"></div>
+        <div class="puzzle-piece" data-index="5" style="background-image: url('image2-3.jpg');"></div>
+        <div class="puzzle-piece" data-index="6" style="background-image: url('image3-1.jpg');"></div>
+        <div class="puzzle-piece" data-index="7" style="background-image: url('image3-2.jpg');"></div>
+        <div class="puzzle-piece" data-index="8" style="background-image: url('image3-3.jpg');"></div>
+    </div>
+    <div class="message" id="message"></div>
+</div>
+
+<script>
+    const puzzleContainer = document.getElementById('puzzle-container');
+    const message = document.getElementById('message');
+
+    const correctImages = [
+        'image1-1.jpg', 'image1-2.jpg', 'image1-3.jpg',
+        'image2-1.jpg', 'image2-2.jpg', 'image2-3.jpg',
+        'image3-1.jpg', 'image3-2.jpg', 'image3-3.jpg'
+    ];
+
+    const alternateImages = [
+        'alt1.jpg', 'alt2.jpg', 'alt3.jpg'
+    ];
+
+    puzzleContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('puzzle-piece')) {
+            const piece = event.target;
+            const currentImage = piece.style.backgroundImage.match(/"(.*?)"/)[1];
+
+            // Toggle image
+            if (!correctImages.includes(currentImage)) {
+                piece.style.backgroundImage = `url('${correctImages[piece.dataset.index]}')`;
+            } else {
+                const randomAltImage = alternateImages[Math.floor(Math.random() * alternateImages.length)];
+                piece.style.backgroundImage = `url('${randomAltImage}')`;
+            }
+
+            checkCompletion();
+        }
+    });
+
+    function checkCompletion() {
+        const pieces = document.querySelectorAll('.puzzle-piece');
+        const isComplete = Array.from(pieces).every((piece, index) => {
+            const currentImage = piece.style.backgroundImage.match(/"(.*?)"/)[1];
+            return currentImage === correctImages[index];
+        });
+
+        if (isComplete) {
+            message.textContent = 'Chúc mừng! Bạn đã hoàn thành bức tranh!';
+        } else {
+            message.textContent = '';
+        }
+    }
+</script>
+</body>
+</html>
